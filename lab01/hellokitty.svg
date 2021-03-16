@@ -44,13 +44,13 @@
 
   <text x="254" y="250" font-size="16" text-anchor="middle" fill="red">(256, 256)</text>
 
-  <path d="M448 256 A200 100, 0 0 0 442 235, 
-           400 100, -35 0 0 435 154, 
-           60 140, 30 0 0 350 120,
+  <path d="M448 256 A200 100, 0 0 0 443 235,
+           400 100, -35 0 0 435 150, 
+           58 100, 30 0 0 350 110,
            100 400, 0 0 0 270 120,
-           200 200, 0 0 0 180 126, 
-           500 118, 55 0 0 84 195, 
-           200 145, 5 1 0 448 256 z" 
+           200 200, 0 0 0 180 126,
+           500 118, 55 0 0 84 195,
+           200 143, 5 1 0 448 256 z" 
    stroke="brown" stroke-width="6" stroke-linecap="miter" fill="orange" opacity="0.3"/>
    <path d="M95 290 C50 285, 30 285, 10 295" stroke="brown" stroke-width="6" stroke-linecap="miter" fill="orange" opacity="0.3"/>
 
