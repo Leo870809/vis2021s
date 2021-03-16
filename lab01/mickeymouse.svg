@@ -18,7 +18,7 @@
   <path d="M256 192 H0 H512" stroke="lightgray" fill="white"></path>
   <text x="2" y="196" font-size="12" text-anchor="start" fill="red">192</text>
   <path d="M256 256 H0 H512" stroke="lightgray" fill="white"></path>
-  <text x="2" y="260" font-size="12" text-anchor="start" fill="red">256</text>
+  <text x="2" y="260" font-size="12" text-anchor="start" fill="red">256</text>1
   <path d="M256 320 H0 H512" stroke="lightgray" fill="white"></path>
   <text x="2" y="324" font-size="12" text-anchor="start" fill="red">320</text>
   <path d="M256 384 H0 H512" stroke="lightgray" fill="white"></path>
@@ -48,7 +48,6 @@
            90 90, 0 1 0 124 223, 
            160 160, 0 1 0 390 223 z" 
    stroke="cyan" stroke-width="6" stroke-linecap="miter" fill="purple" opacity="0.3"/>
-
 
   <circle cx="0" cy="0" r="8" stroke="green" fill="green">
     <animateMotion dur="10s" path="M390 223, A90 90, 0 1 0 337 174, 

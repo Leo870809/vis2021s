@@ -40,20 +40,15 @@
   <text x="438" y="12" font-size="12" text-anchor="start" fill="red">448</text>
   <text x="492" y="12" font-size="12" text-anchor="start" fill="red">512</text>
 
-  <path d="M256 256 V270 V242 M256 256 H270 H242" stroke="black" fill="white"></path>
-
-  <text x="254" y="250" font-size="16" text-anchor="middle" fill="red">(256, 256)</text>
-
   <path d="M448 256 A200 100, 0 0 0 443 235,
            400 100, -35 0 0 435 150, 
-           58 100, 30 0 0 350 110,
+           58 110, 40 0 0 350 110,
            100 400, 0 0 0 270 120,
            200 200, 0 0 0 180 126,
            500 118, 55 0 0 84 195,
            200 143, 5 1 0 448 256 z" 
    stroke="brown" stroke-width="6" stroke-linecap="miter" fill="orange" opacity="0.3"/>
    <path d="M95 290 C50 285, 30 285, 10 295" stroke="brown" stroke-width="6" stroke-linecap="miter" fill="orange" opacity="0.3"/>
-
    <path d="M95 325 L35 340" stroke="brown" stroke-width="6" stroke-linecap="miter" fill="orange" opacity="0.3"/>
    <path d="M120 355 L50 393" stroke="brown" stroke-width="6" stroke-linecap="miter" fill="orange" opacity="0.3"/>
    <path d="M415 285 C450 275, 470 275, 500 280" stroke="brown" stroke-width="6" stroke-linecap="miter" fill="orange" opacity="0.3"/>
