@@ -50,12 +50,6 @@
            150 118, 0 0 0 85 195,
            200 143, 5 1 0 448 256 z" 
    stroke="brown" stroke-width="6" stroke-linecap="miter" fill="orange" opacity="0.3"/>
-   <path d="M95 290 C50 285, 30 285, 10 295" stroke="brown" stroke-width="6" stroke-linecap="miter" fill="none" opacity="0.3"/>
-   <path d="M95 325 L35 340" stroke="brown" stroke-width="6" stroke-linecap="miter" fill="none" opacity="0.3"/>
-   <path d="M120 355 L50 393" stroke="brown" stroke-width="6" stroke-linecap="miter" fill="none" opacity="0.3"/>
-   <path d="M415 285 C450 275, 470 275, 500 280" stroke="brown" stroke-width="6" stroke-linecap="miter" fill="none" opacity="0.3"/>
-   <path d="M425 320 L490 328" stroke="brown" stroke-width="6" stroke-linecap="miter" fill="none" opacity="0.3"/> 
-   <path d="M408 355 L472 380" stroke="brown" stroke-width="6" stroke-linecap="miter" fill="none" opacity="0.3"/>
 
   <circle cx="0" cy="0" r="8" stroke="green" fill="green">
     <animateMotion dur="10s" path="M448 256 A200 100, 0 0 0 442 235, 
