@@ -92,7 +92,21 @@ https://www.oxxostudio.tw/articles/201501/svg-d3-13-csv.html
                     .selectAll("td")
                         .data(function(d) { return d; }).enter()
                         .append("td")
-                        .text(function(d) { return d; });
+                        .text(function(d, i) {
+                           if (!(i != 0 && (d == 0 || d == 1)))
+                                return d; 
+                        })
+                        .each(function(d, i) {
+                            if (i != 0 && (d == 0 || d == 1)) {
+                                d3.select(this).selectAll("img")
+                                    .data(function(d) { return d; }).enter()
+                                    .append("img")
+                                    .attr("src", function(d) { if (d == 1) return "./92.png"; else return "./93.png"; })
+                                    .attr("width", function(d) { if (d == 1) return "65px"; else return "80px"; })
+                                    .attr("height", function(d) { if (d == 1) return "65px"; else return "80px"; });
+                                                
+                            }
+                        });
             });
         </script>
     </body>
