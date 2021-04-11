@@ -81,7 +81,7 @@
 		</ul>
 
 		<div id="dropfile" for="csvfile">
-			CSV 資料扔過來! Drop your CSV here.
+			2020年翡翠水庫水質資料
 		</div>
 		<div>
 			<select id="ObjectKeys">
@@ -103,6 +103,8 @@
                 var treemapContainer = document.getElementById('treemap')
                 var objectKeys = document.getElementById("ObjectKeys")
 
+
+
                 document.getElementById("ObjectKeys").addEventListener('change', function(evt){
 					if(evt.target.value == 'selectValue' ){
 						return;
@@ -120,42 +122,19 @@
                     })
 				})
 
-				document.getElementById('dropfile').addEventListener('dragover',function(evt){
-					evt.preventDefault()
+
+				dataLoader('', function(){
+					dataClassifier(objectKeys.value, function(data, layers){
+						node = getNode(data, layers, treemapContainer)
+						treemapContainer.appendChild(node)
+					}) 
 				})
 
-				document.getElementById('dropfile').addEventListener('drop', function(evt){
-					evt.preventDefault()
 
-					var files = evt.dataTransfer.files
-
-					if (files.length) {
-                        if (treemapContainer.innerHTML.length) {
-                            treemapContainer.innerHTML = ''
-                        }
-
-                        if (objectKeys.innerHTML.length) {
-                            objectKeys.innerHTML = ''
-						}
-
-						var csvFile = files[0]
-
-						//讀取csv
-						var fr = new FileReader()
-
-                        fr.onload = function(){
-                            dataLoader(fr.result, function(){
-								dataClassifier(objectKeys.value, function(data, layers){
-									node = getNode(data, layers, treemapContainer)
-									treemapContainer.innerHTML = node.innerHTML
-								}) 
-							})			                         
-                        }
-
-						fr.readAsText(csvFile)
-					}
-				})
-			})
+                        
+		})
+			
+		
 		</script>
 
 	</body>
