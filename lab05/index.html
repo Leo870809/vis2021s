@@ -4,8 +4,13 @@
     <meta charset="utf-8">
     <title>Lab</title>
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script> <!-- v6.5.0 -->
-        <style type="text/css">
+    <style type="text/css">
+            
+        .bar {
+            fill: mulberry;
+        }
     	
+/*
     	div.bar {
     		border: 1px black solid;
     		padding: 10px;
@@ -21,6 +26,7 @@
     		border: 1px red solid;
     		padding: 20px;
     	}
+*/
     
     </style>
 </head>
@@ -62,7 +68,7 @@
             };
         }
 
-        d3.csv("./data.csv", rowConverter).then(function (data) {
+        d3.csv("data.csv", rowConverter).then(function (data) {
             data.forEach(function (d) {
                 d.Date = +d.Date;
             });
