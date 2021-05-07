@@ -21,7 +21,7 @@
     		border: 1px red solid;
     		padding: 20px;
     	}
-
+    
     </style>
 </head>
 <body>
@@ -44,8 +44,8 @@
 //	    });
         
          var margin = { top: 20, right: 20, bottom: 30, left: 40 },
-            width = window.innerWidth * 9/10,
-            height = window.innerHeight * 5/6,
+            width = window.innerWidth*2/3,
+            height = window.innerHeight*2/3,
             fontSize = 15;
 
         var svg = d3.select("body").append("svg")
@@ -57,14 +57,14 @@
 
         var rowConverter = function (d) {
             return {
-                Sets: parseInt(d.組界),
-                Prob: parseInt(d.頻率)
+                Date: parseInt(d.組界),
+                Amount: parseInt(d.頻率)
             };
         }
 
-        d3.csv("data.csv", rowConverter).then(function (data) {
+        d3.csv("./data.csv", rowConverter).then(function (data) {
             data.forEach(function (d) {
-                d.Sets = +d.Sets;
+                d.Date = +d.Date;
             });
             // set the ranges
             var x = d3.scaleBand()
@@ -74,8 +74,8 @@
                 .range([height, 0]);
 
             // Scale the range of the data in the domains
-            x.domain(data.map(function (d) { return d.Sets; }));
-            y.domain([0, d3.max(data, function (d) { return d.Prob; })]);
+            x.domain(data.map(function (d) { return d.Date; }));
+            y.domain([0, d3.max(data, function (d) { return d.Amount; })]);
 
             svg.selectAll("rect")
                 .data(data)
@@ -83,7 +83,7 @@
                 .append("rect")
                 .attr("class", "bar")
                 .attr("x", function (d) {
-                    return x(d.Sets)
+                    return x(d.Date)
                 })
                 .attr("y", function (d) {
                     return height
@@ -95,47 +95,55 @@
                 .data(data)
                 .enter()
                 .append("text")
-                .attr("class", "textset")
                 .text(function (d) {
-                    return d.Prob;
+                    return d.Amount;
                 })
                 .attr("id","amt")
                 .attr("x", function (d) {
-                    return x(d.Sets) + (x.bandwidth()) / 2 - fontSize / 2;
+                    return x(d.Date) + (x.bandwidth()) / 2 - fontSize / 2;
                 })
-                .attr("y", height - fontSize / 5)
-                
+                .attr("y", height - fontSize / 2)
+                .attr("font-family", "sans-serif")
+                .attr("font-size", 0 + "px");
 
             svg.append("g")
                 .attr("id","xaxis")
-                .attr("class", "textset")
                 .attr("transform", "translate(0," + height + ")")
                 .call(d3.axisBottom(x));
 
             // add the y Axis
             svg.append("g")
                 .attr("id", "yaxis")
-                .attr("class", "textset")
                 .call(d3.axisLeft(y));
 
             // Animation
             svg.selectAll("#amt")
                 .transition()
+                .duration(800)
                 .attr("font-size", fontSize + "px");
           
             svg.select("#xaxis")
                 .selectAll("text")
+                .transition()
+                .duration(800)
+                .attr("transform", "rotate(36)");
 
             svg.select("#yaxis")
                 .selectAll("text")
+                .transition()
+                .duration(800)
+                .attr("transform", "rotate(36)");
 
             svg.selectAll("rect")
                 .transition()
-                .attr("y", function (d) { return y(d.Prob); })
-                .attr("height", function (d) { return height - y(d.Prob); })
+                .duration(800)
+                .attr("y", function (d) { return y(d.Amount); })
+                .attr("height", function (d) { return height - y(d.Amount); })
 
 
             console.log(data);
+        });
         
     </script>
+    </body>
   </html>
