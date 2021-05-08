@@ -34,7 +34,7 @@
 <body>
     <script type="text/javascript">
         
-      d3.csv("data.csv",function(data){
+      d3.csv("https://raw.githubusercontent.com/Shi-Chun-Ming/Self/gh-pages/lab05.csv",function(data){
 	    	d3.select("body")
   			.selectAll("div")
   			.data(data)
@@ -96,7 +96,7 @@
                     return height
                 })
                 .attr("width", x.bandwidth())
-                .attr("height", 0);
+                .attr("height", 0)
                 .attr("fill", function(d) {
                  return "rgb(242, 194, " + Math.round(d['頻率'] * 10) + ")"
                 });
