@@ -6,9 +6,11 @@
     <script src="https://d3js.org/d3.v6.min.js" charset="utf-8"></script> <!-- v6.5.0 -->
     <style type="text/css">
 
+/*
         .bar {
-            fill: #B44682;
+            fill: #F2B8A2;
         }
+*/
         
     	div.bar {
     		border: 1px black solid;
@@ -24,6 +26,7 @@
     	body {
     		border: 1px red solid;
     		padding: 20px;
+            background-color: #C0EEF4;
     	}
 
     </style>
@@ -94,6 +97,9 @@
                 })
                 .attr("width", x.bandwidth())
                 .attr("height", 0);
+                .attr("fill", function(d) {
+                 return "rgb(242, 194, " + Math.round(d['頻率'] * 10) + ")"
+                });
 
             svg.selectAll("text")
                 .data(data)
