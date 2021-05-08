@@ -3,14 +3,14 @@
 <head>
     <meta charset="utf-8">
     <title>Lab</title>
-    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script> <!-- v6.5.0 -->
+    <script src="https://d3js.org/d3.v6.min.js" charset="utf-8"></script> <!-- v6.5.0 -->
     <style type="text/css">
-            
+
         .bar {
-            fill: mulberry;
+            fill: #B44682;
         }
-    	
-/*
+        
+        /*
     	div.bar {
     		border: 1px black solid;
     		padding: 10px;
@@ -27,12 +27,10 @@
     		padding: 20px;
     	}
 */
-    
     </style>
 </head>
 <body>
     <script type="text/javascript">
-        
 //      d3.csv("data.csv",function(data){
 //	    	d3.select("body")
 //  			.selectAll("div")
@@ -48,10 +46,10 @@
 //  			});
 //
 //	    });
-        
-         var margin = { top: 20, right: 20, bottom: 30, left: 40 },
-            width = window.innerWidth*2/3,
-            height = window.innerHeight*2/3,
+
+        var margin = { top: 20, right: 20, bottom: 30, left: 40 },
+            width = window.innerWidth*7/8,
+            height = window.innerHeight*4/5,
             fontSize = 15;
 
         var svg = d3.select("body").append("svg")
@@ -108,7 +106,7 @@
                 .attr("x", function (d) {
                     return x(d.Date) + (x.bandwidth()) / 2 - fontSize / 2;
                 })
-                .attr("y", height - fontSize / 2)
+                .attr("y", height - fontSize / 4)
                 .attr("font-family", "sans-serif")
                 .attr("font-size", 0 + "px");
 
@@ -132,13 +130,11 @@
                 .selectAll("text")
                 .transition()
                 .duration(800)
-                .attr("transform", "rotate(36)");
 
             svg.select("#yaxis")
                 .selectAll("text")
                 .transition()
                 .duration(800)
-                .attr("transform", "rotate(36)");
 
             svg.selectAll("rect")
                 .transition()
@@ -149,7 +145,7 @@
 
             console.log(data);
         });
-        
+
     </script>
     </body>
   </html>
