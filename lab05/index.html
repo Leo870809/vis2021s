@@ -10,7 +10,6 @@
             fill: #B44682;
         }
         
-        
     	div.bar {
     		border: 1px black solid;
     		padding: 10px;
@@ -31,21 +30,22 @@
 </head>
 <body>
     <script type="text/javascript">
-//      d3.csv("data.csv",function(data){
-//	    	d3.select("body")
-//  			.selectAll("div")
-//  			.data(data)
-//  			.enter()
-//  			.append("div")
-//  			.text(function(d){
-//  				return d['頻率'];
-//  			})
-//  			.attr("class", "bar")
-//  			.style("height", function(d){
-//  				return d['頻率']*5 +'px';
-//  			});
-//
-//	    });
+        
+      d3.csv("data.csv",function(data){
+	    	d3.select("body")
+  			.selectAll("div")
+  			.data(data)
+  			.enter()
+  			.append("div")
+  			.text(function(d){
+  				return d['頻率'];
+  			})
+  			.attr("class", "bar")
+  			.style("height", function(d){
+  				return d['頻率']*5 +'px';
+  			});
+
+	    });
 
         var margin = { top: 20, right: 20, bottom: 30, left: 40 },
             width = window.innerWidth*7/8,
@@ -108,8 +108,8 @@
                 })
                 .attr("y", height - fontSize / 4)
                 .attr("font-family", "sans-serif")
-                .attr("font-size", 0 + "px");
-
+                .attr("font-size", 30 + "px");
+            
             svg.append("g")
                 .attr("id","xaxis")
                 .attr("transform", "translate(0," + height + ")")
@@ -124,22 +124,24 @@
             svg.selectAll("#amt")
                 .transition()
                 .duration(800)
-                .attr("font-size", fontSize + "px");
+                .attr("font-size", 19 + "px");
+                
           
             svg.select("#xaxis")
                 .selectAll("text")
                 .transition()
+                .attr("font-size", 13 + "px");
 
             svg.select("#yaxis")
                 .selectAll("text")
                 .transition()
+                .attr("font-size", 13 + "px");
 
             svg.selectAll("rect")
                 .transition()
                 .duration(800)
                 .attr("y", function (d) { return y(d.Amount); })
                 .attr("height", function (d) { return height - y(d.Amount); })
-
 
             console.log(data);
         });
