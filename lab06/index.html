@@ -39,7 +39,7 @@
 
 var margin = {top: 20, right: 160, bottom: 35, left: 30};
 
-var width = 5000 - margin.left - margin.right,
+var width = 3500 - margin.left - margin.right,
     height = 700 - margin.top - margin.bottom;
 
 var svg = d3.select("body")
@@ -130,7 +130,7 @@ var rect = groups.selectAll("rect")
   .data(function(d) { return d; })
   .enter()
   .append("rect")
-  .attr("x", function(d) { return x(d.x)-80; })
+  .attr("x", function(d) { return x(d.x); })
   .attr("y", function(d) { return y(d.y0 + d.y); })
   .attr("height", function(d) { return y(d.y0) - y(d.y0 + d.y); })
   .attr("width", x.rangeBand())
@@ -159,7 +159,7 @@ legend.append("rect")
   .style("fill", function(d, i) {return colors.slice().reverse()[i];});
 
 legend.append("text")
-  .attr("x", width)
+  .attr("x", width + 10)
   .attr("y", 9)
   .attr("dy", ".35em")
   .style("text-anchor", "start")
