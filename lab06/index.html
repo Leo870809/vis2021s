@@ -68,18 +68,18 @@ var svg = d3.select("body")
 
 var parse = d3.time.format("%Y").parse;
 
-var data = [];
+var datas = [];
 
 var text = d3.text("data.csv", function(data){
   var parseCSV =  d3.csv.parseRows(data);
   parseCSV.forEach(function(item, index){
     if(index != 0){
-      data.push({index:index-1, 國文:item[0], 英文:item[1], 法文:item[2], 德文:item[3], 日文:item[4], type1:item[5], type2:item[6]})
+      datas.push({index:index-1, 國文:item[0], 英文:item[1], 法文:item[2], 德文:item[3], 日文:item[4], type1:item[5], type2:item[6]})
     }
   });
-  data = Object.values(data);
+  datas = Object.values(datas);
   var dataset = d3.layout.stack()(["國文", "英文", "法文", "德文", "日文"].map(function(type) {
-    return data.map(function(d) {
+    return datas.map(function(d) {
       console.log(d);
       return {x: d.index, y: +d[type]};
     });
@@ -130,10 +130,12 @@ var rect = groups.selectAll("rect")
   .data(function(d) { return d; })
   .enter()
   .append("rect")
-  .attr("x", function(d) { return x(d.x); })
+  .attr("x", function(d) { return x(d.x)-50; })
   .attr("y", function(d) { return y(d.y0 + d.y); })
   .attr("height", function(d) { return y(d.y0) - y(d.y0 + d.y); })
   .attr("width", x.rangeBand())
+  .style("stroke", "black")
+  .style("stroke-width", "1")
   .on("mouseover", function() { tooltip.style("display", null); })
   .on("mouseout", function() { tooltip.style("display", "none"); })
   .on("mousemove", function(d) {
@@ -151,13 +153,13 @@ var legend = svg.selectAll(".legend")
   .attr("transform", function(d, i) { return "translate(30," + i * 19 + ")"; });
 
 legend.append("rect")
-  .attr("x", width - 18)
+  .attr("x", width - 58)
   .attr("width", 18)
   .attr("height", 18)
   .style("fill", function(d, i) {return colors.slice().reverse()[i];});
 
 legend.append("text")
-  .attr("x", width + 5)
+  .attr("x", width - 20)
   .attr("y", 9)
   .attr("dy", ".35em")
   .style("text-anchor", "start")
@@ -190,7 +192,6 @@ tooltip.append("text")
   .attr("font-size", "12px")
   .attr("font-weight", "bold");
 })
-
 </script>
 </body>
 </html>
