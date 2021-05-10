@@ -149,10 +149,13 @@ var rect = groups.selectAll("rect")
     var xPosition = d3.mouse(this)[0] - 15;
     var yPosition = d3.mouse(this)[1] - 25;
     d3.select(this)
-          .style("opacity", 0.5)
-          .style("-webkit-filter", "invert(70%)")
-          .style("filter", "invert(70%)")
-          .style("stroke", "red")
+        .transition()
+        .duration(300)
+    d3.select(this)
+        .style("opacity", 0.5)
+        .style("-webkit-filter", "invert(70%)")
+        .style("filter", "invert(70%)")
+        .style("stroke", "red")
     tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
     tooltip.select("text").text(d.y);
   });
