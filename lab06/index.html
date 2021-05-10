@@ -138,20 +138,20 @@ var rect = groups.selectAll("rect")
   .style("stroke-width", "0.8")
   .on("mouseover", function() { tooltip.style("display", null); })
   .on("mouseout", function() { 
-      tooltip.style("display", "none"); 
-       d3.select(this)
-          .style("opacity", 1)
-          .style("-webkit-filter", "invert(0%)")
-          .style("filter", "invert(0%)")
-          .style("stroke", "black")
+    tooltip.style("display", "none"); 
+    d3.select(this)
+        .style("opacity", 1)
+        .style("-webkit-filter", "invert(0%)")
+        .style("filter", "invert(0%)")
+        .style("stroke", "black")
   })
   .on("mousemove", function(d) {
     var xPosition = d3.mouse(this)[0] - 15;
     var yPosition = d3.mouse(this)[1] - 25;
     d3.select(this)
           .style("opacity", 0.5)
-          .style("-webkit-filter", "invert(50%)")
-          .style("filter", "invert(50%)")
+          .style("-webkit-filter", "invert(70%)")
+          .style("filter", "invert(70%)")
           .style("stroke", "red")
     tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
     tooltip.select("text").text(d.y);
