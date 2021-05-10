@@ -135,7 +135,7 @@ var rect = groups.selectAll("rect")
   .attr("height", function(d) { return y(d.y0) - y(d.y0 + d.y); })
   .attr("width", x.rangeBand())
   .style("stroke", "black")
-  .style("stroke-width", "1")
+  .style("stroke-width", "0.8")
   .on("mouseover", function() { tooltip.style("display", null); })
   .on("mouseout", function() { 
       tooltip.style("display", "none"); 
