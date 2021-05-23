@@ -109,14 +109,15 @@
 			.attr('height', h)
 			.attr('viewbox', function () {
 				return "0, 0, " + w + ', ' + h;
-			})
-			;
+			});
 
 		var timeText = svg
 			.append('text')
 			.text('--:--')
-			.attr('x', 800)
-			.attr('y', 60)
+            .style('fill', '#999966')
+            .style('font-size', '20px')
+			.attr('x', 10)
+			.attr('y', 535)
 
 		make_subtitle();
 
@@ -204,7 +205,7 @@
 					.attr('x', w / 2)
 					.attr('y', h - 50)
 					.attr("text-anchor", "middle")
-					//.style('display', 'none')
+					.style('fill', '#99b3ff')
 					.attr('opacity', 0)
 
 			})
