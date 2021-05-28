@@ -63,7 +63,7 @@
         setInterval(window.onload = () => {
             loadWordFromPath('./黃.svg', '#first',0);
             loadWordFromPath('./琛.svg', '#second',0);
-            loadWord('淯.svg', '#third',0);
+            loadWordFromPath('./淯.svg', '#third',0);
             
             document.getElementById('dropfile').addEventListener('dragover', (evt) => {
                 evt.preventDefault()
@@ -124,9 +124,7 @@
                 if (option == 0) {
                     circlePathd = convertor(newPathd)
                 }
-                else {
-                    circlePathd = convertor2(newPathd)
-                }
+                
 
                 svgpanel
                     .select('path')
