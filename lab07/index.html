@@ -80,9 +80,9 @@
                 loadWord(files, '#svgimage', 0);
             })
 
-        }, 10000)
+        }, 9000)
         
-        function loadWordFromPath(files, elementId, option) {
+        function loadWordFromPath(filePath, elementId, option) {
             readFileFromPath(filePath, (e) => {
                 var svgpanel = d3.select(elementId)
                 var newPathd = svgpanel
@@ -127,9 +127,6 @@
                 var circlePathd;
                 if (option == 0) {
                     circlePathd = convertor(newPathd)
-                }
-                else {
-                    circlePathd = convertor2(newPathd)
                 }
                 
 
