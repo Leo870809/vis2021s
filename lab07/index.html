@@ -82,7 +82,7 @@
 
         }, 10000)
         
-        function loadWordFromPath(filePath, elementId, option) {
+        function loadWordFromPath(files, elementId, option) {
             readFileFromPath(filePath, (e) => {
                 var svgpanel = d3.select(elementId)
                 var newPathd = svgpanel
