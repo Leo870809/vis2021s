@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+ <script> let myName = 'black';
+let count=0
+</script>
 <head>
     <meta charset="utf-8">
     <title>Lab 8</title>
@@ -19,7 +22,7 @@
         div {
           font-size: 12pt;
         }
-        
+
         body {
             background-color: rgba(255, 128, 255, 0.1);
         }
@@ -27,7 +30,7 @@
         video:hover {
             box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
         }
-        
+
         .path {
           stroke-dasharray: 1000;
           stroke-dashoffset: 1000;
@@ -39,52 +42,28 @@
           }
         }
     </style>
-    <script src="http://d3js.org/d3.v6.min.js" charset="utf-8"></script> <!-- v6.5.0 -->
+    <script src="https://d3js.org/d3.v6.min.js" charset="utf-8"></script> <!-- v6.5.0 -->
 </head>
 <body>
-    <h1>
-        lab08 漢字書寫 (鉛筆字) (毛筆字也OK!) Path Animation
-    </h1>
-    <div>
-      限定使用 D3.js，參考以下影片。
-    	<ul>
-    		<li><a href="https://bl.ocks.org/basilesimon/f164aec5758d16d51d248e41af5428e4">Animate path in D3</a></li>
-    		<li><a href="https://codepen.io/MyXoToD/post/howto-self-drawing-svg-animation">"Self-Drawing" SVG</a></li>
-    		<li><a href="https://stackoverflow.com/questions/15275362/how-to-transition-a-path-in-d3-js">How to transition a path in d3.js</a></li>
-        <li><a href="https://css-tricks.com/svg-line-animation-works/">How SVG Line Animation Works</a></li>
-        <li><a href="http://blog.roachking.net/blog/2014/10/31/osolve-team-drawing-animation/">使用 SVG 將圖片做成動畫</a></li>
-        <li><a href="https://www.hesyifei.com/">何一非</a></li>
-    	</ul>
-    </div>
+   
 
     <div>
-  		<video width="400" controls loop autoplay>
-  		  <source src="3.mp4" type="video/mp4">
-  		</video>
-    </div>
-
-    <div>
-      展示區 (姓名)
-      <hr>
+      每點一次按鈕 都會用另外一種顏色重寫 快速連點按鈕會有特殊效果<hr>
+      <button type="button" style="width:160px;height:160px;" onclick="myFunction();">點我播放動畫</button><hr>
       <svg id="svg1" height="450" width="350">
       </svg>
       <svg id="svg2" height="450" width="350">
       </svg>
       <svg id="svg3" height="450" width="350">
       </svg>
-<!--
-      <img width="256" src="./黃.svg">
-      <img width="256" src="./琛.svg">
-      <img width="256" src="./淯.svg">
--->
-    </div>
 
-    <div>
-      Drag and Drop 展示區 (接收任何SVG)
+      
     </div>
 
     <script type="text/javascript">
     var line = d3.line();
+    
+
     var first = [
                 "m 46.550265,60.613757 25.396825,-4.740741 97.86243,-24.719577 15.91535,-8.126984 19.97883,9.820106 0.33863,0.338624",
                 "M 78.042328,9.8201058 98.02116,39.280423 110.21164,70.772487 114,65",
@@ -98,10 +77,9 @@
                 "m 122.06349,87.703704 -0.33862,51.470896 v 46.05291 l -1.01588,2.709",
                 "m 111,173 2,9 -5.83598,19.14286 -20.317459,20.99471 -19.978836,11.1746 v 0",
                 "m 127,194 39.7619,15.60847 20.99471,19.30158 19.64022,-0.67725 v 0"
-                ]
+          ]
 
-    var middle = ["",
-                  "M 18.516456,65.134177 46.060759,62.865823 58.698734,57.681013 74.253165,53.468354 77,45 91,51 95.64051,55.736709 91,51",
+    var middle = ["M 18.516456,65.134177 46.060759,62.865823 58.698734,57.681013 74.253165,53.468354 77,45 91,51 95.64051,55.736709 91,51",
                   "m 27.589873,129.62025 20.41519,-10.04557 38.886076,-22.035439 v 0",
                   "m 2.962025,187.94937 19.767089,-0.6481 28.192405,-20.09114 48.607591,-51.8481 v 0",
                   "M 52.865823,68.050633 67,84 60.967089,92.03038 56.43038,171.74684 v 0",
@@ -112,10 +90,9 @@
                   "M 129.34177,87.16962 152,104 v 0 l -8.07595,-1.6 4.53671,74.20759 L 149,227 l -5.72405,-14.09873 -19.76709,-30.13671 -2.26835,-1.94431",
                   "m 153.96962,124.11139 -17.82278,12.96203 -11.01773,15.87848 -19.76708,15.87848 -34.025321,16.85063 v 0 0",
                   "m 128.36962,106.28861 35.32152,47.95949 27.5443,28.19241 7.77722,4.21265 18.79493,-3.2405 38.56203,6.80506 v 0"
-                ]
+]
 
-    var last = ["",
-                "M 23.053165,26.572152 56.43038,40.506329 66,44 57.078481,43.422785 H 35.043038 v 0",
+    var last = ["M 23.053165,26.572152 56.43038,40.506329 66,44 57.078481,43.422785 H 35.043038 v 0",
                 "M -6.435443,92.03038 28.237975,98.187342 41,94 54,96 27.589873,107.90886 v 0",
                 "M 85.270886,102.4 58.050633,151.33165 41.848101,181.46835 37.311392,194.75443 39,204 l -9,1 -6,-12 3,-12 1.562025,-12.16962 v 0",
                 "M 143.27595,-4.5367089 165.31139,6.156962 178,14 v 3 l -10.42025,-5.334177 -26.57216,10.045569 v 0",
@@ -126,53 +103,83 @@
                 "M 151.05316,131.88861 192.8557,116.98228 169,131 v 0",
                 "M 151.37722,154.57215 191,145 l -17,7"
               ]
-    
-     const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-     async function first_N(){
-        for (var i = 0; i < first.length; i++) {
-            d3.select("#svg1")
-            .append('path')
-            .attr('class', 'path')
-            .attr('fill', "none")
-            .attr('stroke', "black")
-            .attr('stroke-width', "6.103")
-            .attr('d', first[i]);
-            console.log(i);
-            await sleep(500);
-        }
-     }
-    first_N()
 
-    async function middle_N(){
-        for (var j = 0; j < middle.length; j++) {
-            d3.select("#svg2")
-            .append('path')
-            .attr('class', 'path')
-            .attr('fill', "none")
-            .attr('stroke', "black")
-            .attr('stroke-width', "6.103")
-            .attr('d', middle[j]);
-            console.log(j);
-            await sleep(500);
-        }
+    const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+    async function first_N(){
+    for (var i = 0; i < first.length; i++) {
+      d3.select("#svg1")
+      .append('path')
+      .attr('class', 'path')
+      .attr('fill', "none")
+      .attr('stroke', myName)
+      .attr('stroke-width', "12")
+      .attr('stroke-linejoin',"miter")
+      .attr('stroke-linecap',"butt")
+      .attr('d', first[i]);
+      console.log(i);
+      await sleep(500);
     }
-    middle_N()
+}
+first_N()
 
-    async function last_N(){
-        for (var k = 0; k < last.length; k++) {
-        d3.select("#svg3")
-        .append('path')
-        .attr('class', 'path')
-        .attr('fill', "none")
-        .attr('stroke', "black")
-        .attr('stroke-width', "6.103")
-        .attr('d', last[k]);
-        console.log(k);
+async function middle_N(){
+    for (var j = 0; j < middle.length; j++) {
+        d3.select("#svg2")
+      .append('path')
+      .attr('class', 'path')
+      .attr('fill', "none")
+      .attr('stroke', myName)
+      .attr('stroke-width', "12")
+      .attr('stroke-linejoin',"miter")
+      .attr('stroke-linecap',"butt")
+        .attr('d', middle[j]);
+        console.log(j);
         await sleep(500);
-        }
     }
-    last_N()
-        
+}
+middle_N()
+
+async function last_N(){
+    for (var k = 0; k < last.length; k++) {
+      d3.select("#svg3")
+      .append('path')
+      .attr('class', 'path')
+      .attr('fill', "none")
+      .attr('stroke', myName)
+      .attr('stroke-width', "12")
+      .attr('stroke-linejoin',"miter")
+      .attr('stroke-linecap',"butt")
+      .attr('d', last[k]);
+      console.log(k);
+      await sleep(500);
+    }
+}
+last_N()
+
+
+
+function myFunction() {
+
+if(count==0){count++;myName="red"}
+else if(count==1){count++;myName="blue"}
+else if(count==2){count++;myName="yellow"}
+else if(count==3){count++;myName="green"}
+else if(count==4){count++;myName="purple"}
+else if(count==5){count++;myName="orange"}
+else if(count==6){count++;myName="gray"}
+else if(count==7){count++;myName="gold"}
+else if(count==8){count++;myName="lime"}
+else if(count==9){count++;myName="pink"}
+else if(count>=10){count++;myName="black";count=0}
+
+
+first_N()
+middle_N()
+last_N()
+
+
+      }
+
+   
     </script>
   </html>
-  
