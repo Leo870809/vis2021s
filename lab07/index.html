@@ -53,7 +53,7 @@
     </div>
 
     <div id="dropfile">
-        <p>Drag and Drop 展示區 (接收任何SVG)</p>
+        <p>Drag and Drop 展示區 (接收任何SVG) (Click to restart)</p>
         <div id="svgimage">
         </div>
     </div>
@@ -143,17 +143,16 @@
                     .attr('d', circlePathd)
                 
                 svgpanel
-                    .on("start", function loop() {
+                    .on('click', (evt) => {
                         console.log('a')
                        svgpanel
                             .select('path')
                             .transition()
-                            .duration(8000)
+                            .duration(4000)
                             .attr('d', newPathd)
                             .transition()
-                            .duration(8000)
+                            .duration(4000)
                             .attr('d', circlePathd)
-                            .on("start", loop);
                     })
             })
         }
