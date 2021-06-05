@@ -97,6 +97,12 @@
 
 		d3.select(video)
 			.style('display', 'none')
+            .on('ended', function () {
+				play_state = 0
+				playBtnText.attr('opacity',1)
+				playBtnText.text('Replay')
+				document.getElementById('video').style.display = 'none';
+			})
 			.on('timeupdate', () => {
 				play_time(video.currentTime);
 				play_subtitle(video.currentTime);
@@ -115,7 +121,7 @@
 			.append('text')
 			.text('--:--')
             .style('fill', '#999966')
-            .style('font-size', '20px')
+            .style('font-size', '30px')
 			.attr('x', 10)
 			.attr('y', 535)
 
