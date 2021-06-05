@@ -39,6 +39,12 @@
 		    font-family: 'Noto Sans JP', 'Noto Serif JP', 'MS PGothic';
 		}
 
+        #subtitle {
+			font-size: 40px;
+		    fill: #99b3ff;
+		    font-family: 'Noto Sans JP', 'Noto Serif JP', 'MS PGothic';
+		}
+        
 		#clock {
 			font-size: 30px;
 		    fill: #999966;
@@ -145,7 +151,7 @@
 			      .attr('x', 10)
 			      .attr('y', 535)
                   .style('fill', '#999966')
-                  .style('font-size', '20px')
+                  .style('font-size', '30px')
 			      .attr('opacity', 0)
 			      .transition()
 			      .duration(1000)
@@ -213,42 +219,41 @@
 				    	return "0, 0, " + w + ', ' + h;
 				    })
 				    ;
-                
-                subtitle = svg
-                        .append('g')
-				        .selectAll('text')
-			            .data(myarray)
-			            .enter()
-			            .append('text')
-			            .attr('class', 'text_1')
-			            .text(function(d, i){
-							 return d.subtile;
+                                
+                    svg.selectAll('text')
+			       .data(myarray)
+			       .enter()
+			       .append('text')
+			       .attr('class', 'text_1')
+			       .text(function(d, i){
+							 	return d.subtile;
 						 })
-			             .attr('begin', function(d, i){
-			       		    return d.begin;
-			             })
-			             .attr('end', function(d, i){
-			       		    return d.end;
-			             })
-			             .attr('x', w / 2)
-			             .attr('y', h - 50)
-			             .attr("text-anchor", "middle")
-                         .style('fill', '#99b3ff')
-			             .attr("background", "black")
-			             .attr('opacity', 0)
-			             .transition()
-			             .delay(function(d){
-						      return d.begin * 1000;
-			             })
-				         .duration(0.1)
-			             .attr('opacity', 1)
-			             .transition()
-				         .delay(function(d){
-						      return d.dur * 1000;
-			             })
-					     .duration(0.1)
-			             .attr('opacity', 0)
-			             ;
+			       .attr('begin', function(d, i){
+			       		return d.begin;
+			       })
+			       .attr('end', function(d, i){
+			       		return d.end;
+			       })
+			       .attr('x', w / 2)
+			       .attr('y', h - 50)
+			       .attr("text-anchor", "middle")
+			       .attr("background", "black")
+			       .attr('opacity', 0)
+			       .transition()
+			       .delay(function(d){
+			     	   // return (d.begin - d.dur / 2) * 1000;
+						return d.begin * 1000;
+			       })
+				   .duration(0.1)
+			       .attr('opacity', 1)
+			       .transition()
+				   .delay(function(d){
+					// return (d.begin - d.dur / 2) * 1000;
+						return d.dur * 1000;
+			        })
+					.duration(0.1)
+			       .attr('opacity', 0)
+			       ;
 
 			    play_time();
 			})
