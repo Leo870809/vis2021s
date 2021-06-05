@@ -2,40 +2,44 @@
 <html>
 <head>
 	<title></title>
+	<link rel="shortcut icon" href="#">
 	<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+
+	<!-- <script src="d3.v6.min.js" charset="utf-8"></script> -->
 	<style type="text/css">
+		@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@900&display=swap');
+		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@900&display=swap');
 
 		body {
-			/* background-image: url("1a.png"); */
+            
 		}
 
 		video {
-			position:absolute; 
-			top:50%; 
-			left:50%; 
-			margin-left:-480px; 
+			position:absolute;
+			top:50%;
+			left:50%;
+			margin-left:-480px;
 			margin-top:-270px;
 		}
 
 		svg {
-			position:absolute; 
-			top:50%; 
-			left:50%; 
-			margin-left:-480px; 
+			position:absolute;
+			top:50%;
+			left:50%;
+			margin-left:-480px;
 			margin-top:-270px;
 			border: 1px solid gray;
 		}
 
 		svg text {
 			font-size: 40px;
-            font-weight: bold;
-            fill: white;
-            stroke: black;
-            stroke-width: 1px;
-            font-family: 'MS PGothic';
+		    fill: white;
+            background-color: black;
+		    stroke: black;
+		    font-family: 'Noto Sans JP', 'Noto Serif JP', 'MS PGothic';
 		}
-        
-        #clock {
+
+		#clock {
 			font-size: 30px;
 		    fill: #999966;
 		    font-family: 'Noto Sans JP', 'Noto Serif JP', 'MS PGothic';
@@ -66,8 +70,13 @@
 		}
 
 		#subtitle {
-			pointer-events: none;
+			/* pointer-events: none; */
 		}
+
+    .text_black{
+        fill: black;
+    }
+
 	</style>
 </head>
 <body>
@@ -95,8 +104,6 @@
 		  .on('click', function(){
 		  	document.getElementById("video").play();
 		  	document.getElementById("video").style.display = "inline";
-		  	//document.getElementById("subtitle").style.display = "inline";
-		  	//this.style.display = 'none';
 		  	document.getElementById("replay").style.display = "none";
 		  	make_subtitle();
 		  })
@@ -109,9 +116,9 @@
 		var dur;
 		var subtitle;
 
-		var time = 0;
+		var time;
 
-		var to_clock = function(time){
+        var to_clock = function(time){
           if (time % 60 < 10)
             return '0' + parseInt(time / 60) + ':' + '0' + time % 60;
           else
@@ -120,21 +127,25 @@
 
 
 		function play_time(){
+
 			time = 0;
-			var totaltime = parseInt( document.getElementById("video").duration );
+
+			var time2 = parseInt( document.getElementById("video").duration );
+			//alert(time2 + ' seconds');
 
 			let timer = setInterval(() => {
+
 				var mytime  = to_clock(time);
-				var mytotaltime = to_clock(totaltime);
+				var mytime2 = to_clock(time2);
 
 			    d3.select('#subtitle')
 			      .append('text')
 			      .attr('id', 'clock')
-			      .text(mytime +' / ' + mytotaltime)
-			      .style('fill', '#999966')
-                  .style('font-size', '30px')
+			      .text(mytime +' / ' + mytime2)
 			      .attr('x', 10)
 			      .attr('y', 535)
+                  .style('fill', '#999966')
+                  .style('font-size', '20px')
 			      .attr('opacity', 0)
 			      .transition()
 			      .duration(1000)
@@ -148,6 +159,7 @@
 			    time++;
 			}, 1000);
 		}
+
 
 		function make_subtitle(){
 
@@ -175,6 +187,7 @@
 				  			"subtile": subtile
 				  		});
 				  	} else if (d.length == 3 ){
+							console.log(parseInt(d[0][3]))
 				  		begin = (parseInt(d[0][3]) * 10 + parseInt(d[0][4])) * 60 +
 				  		        (parseInt(d[0][6]) * 10 + parseInt(d[0][7]));
 
@@ -182,14 +195,12 @@
 				  		        (parseInt(d[1][14]) * 10 + parseInt(d[1][15]));
 				  	} else {
 				  		subtile = d;
-				  	}   
+				  	}
 				  })
 				  ;
 
-				  // 完成歌詞
-				  console.log(myarray);
+				  // console.log(myarray);
 
-				  // 完成歌詞
 				  var w = 960;
 				  var h = 540;
 
@@ -209,30 +220,33 @@
 			            .data(myarray)
 			            .enter()
 			            .append('text')
+			            .attr('class', 'text_1')
 			            .text(function(d, i){
-						      return d.subtile;
-					    })
-			            .attr('begin', function(d, i){
+							 return d.subtile;
+						 })
+			             .attr('begin', function(d, i){
 			       		    return d.begin;
 			             })
-			            .attr('end', function(d, i){
+			             .attr('end', function(d, i){
 			       		    return d.end;
 			             })
 			             .attr('x', w / 2)
 			             .attr('y', h - 50)
 			             .attr("text-anchor", "middle")
-			             .style('fill', '#99b3ff')
+                         .style('fill', '#99b3ff')
+			             .attr("background", "black")
 			             .attr('opacity', 0)
 			             .transition()
 			             .delay(function(d){
-			     	       return d.begin * 1000;
+						      return d.begin * 1000;
 			             })
+				         .duration(0.1)
 			             .attr('opacity', 1)
 			             .transition()
-		                 .duration(function(d){
-		                      return d.dur * 1000;
-		                  })
-                         .duration(0.1)
+				         .delay(function(d){
+						      return d.dur * 1000;
+			             })
+					     .duration(0.1)
 			             .attr('opacity', 0)
 			             ;
 
