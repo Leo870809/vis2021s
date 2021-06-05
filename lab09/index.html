@@ -97,9 +97,6 @@
 
 		d3.select(video)
 			.style('display', 'none')
-            .on('ended', function () {
-				document.getElementById('video').style.display = 'none';
-			})
 			.on('timeupdate', () => {
 				play_time(video.currentTime);
 				play_subtitle(video.currentTime);
