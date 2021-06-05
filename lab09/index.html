@@ -93,7 +93,7 @@
 		  	document.getElementById("video").play();
 		  	document.getElementById("video").style.display = "inline";
 		  	document.getElementById("replay").style.display = "none";
-			
+			make_subtitle();
 		  });
 
 		d3.select(video)
@@ -120,7 +120,7 @@
 			.attr('x', 10)
 			.attr('y', 535)
 
-		make_subtitle();
+		//make_subtitle();
 
 		function play_time(time){
 			
@@ -134,29 +134,30 @@
 			timeText.text(second + ':' + minute + ' / 04:39');
 		}
 
-		function play_subtitle(currentTime) {
-			
-			subtitle.filter(function (d, i) {
-					if (frame != i && currentTime > d.begin && currentTime < d.end) {
-						frame = i;
-						return true;
-					}
-					return false;
-				})
-				.transition()
-				.duration(textAniTime)
-				.attr('opacity', 1)
-				.transition()
-				.delay(function (d) {
-					return (d.end - currentTime) * 1000;
-				})
-				.duration(textAniTime)
-				.attr('opacity', 0)
-				;
-		}
+//		function play_subtitle(currentTime) {
+//			
+//			subtitle.filter(function (d, i) {
+//					if (frame != i && currentTime > d.begin && currentTime < d.end) {
+//						frame = i;
+//						return true;
+//					}
+//					return false;
+//				})
+//				.transition()
+//				.duration(textAniTime)
+//				.attr('opacity', 1)
+//				.transition()
+//				.delay(function (d) {
+//					return (d.end - currentTime) * 1000;
+//				})
+//				.duration(textAniTime)
+//				.attr('opacity', 0)
+//				;
+//		}
 
-		async function make_subtitle() {
-			var myarray = [];
+        
+        function make_subtitle(){
+
 			d3.text('song.srt', function(data){
 				console.log(data);
 				//alert(data);
@@ -176,8 +177,10 @@
 				  		key = parseInt(d);
 				  	} else if (d == '') {
 				  		myarray.push({
+				  			"key": key,
 				  			"begin": begin,
 				  			"end": end,
+				  			"dur": end - begin,
 				  			"subtile": subtile
 				  		});
 				  	} else if (d.length == 3 ){
@@ -190,27 +193,118 @@
 				  		subtile = d;
 				  	}   
 				  })
-					;
-				console.log(myarray)
-				subtitle = svg
-					.append('g')
-					.selectAll('text')
-					.data(myarray)
-					.enter()
-					.append('text')
-					.text(function (d, i) {
-						console.log(i)
-						console.log(d)
+				  ;
+
+				  // 完成歌詞
+				  console.log(myarray);
+
+				  // 完成歌詞
+				  var w = 960;
+				  var h = 540;
+
+				  var svg = d3.select('body')
+				    .append('svg')
+				    .attr('id', 'subtitle')
+				    .attr('width', w)
+				    .attr('height', h)
+				    .attr('viewbox', function(){
+				    	return "0, 0, " + w + ', ' + h;
+				    })
+				    ;
+
+				svg.selectAll('text')
+			       .data(myarray)
+			       .enter()
+			       .append('text')
+			       .text(function(d, i){
 						return d.subtile;
 					})
-					.attr('x', w / 2)
-					.attr('y', h - 50)
-					.attr("text-anchor", "middle")
-					.style('fill', '#99b3ff')
-					.attr('opacity', 0)
+			       .attr('begin', function(d, i){
+			       		return d.begin;
+			       })
+			       .attr('end', function(d, i){
+			       		return d.end;
+			       })
+			       .attr('x', w / 2)
+			       .attr('y', h - 50)
+			       .attr("text-anchor", "middle")
+			       .style('fill', '#99b3ff')
+			       .attr('opacity', 0)
+			       .transition()
+			       .delay(function(d){
+			     	   return (d.begin - d.dur / 2) * 1000;
+			       })
+			       .duration(function(d){
+			           return (d.dur + d.dur / 2) * 1000;
+			       })
+			       .attr('opacity', 1)
+			       .transition()
+		           .duration(function(d){
+		               return (d.dur / 6.0 * 1000.0);
+		           })
+			       .attr('opacity', 0)
+			       ;
 
+			    play_time();
 			})
 		}
+        
+//		async function make_subtitle() {
+//			var myarray = [];
+//			d3.text('song.srt', function(data){
+//				console.log(data);
+//				//alert(data);
+//
+//				parsedCSV = d3.csvParseRows(data);
+//				console.log(parsedCSV);
+//				//alert('parsedCSV.length = ' + parsedCSV.length);
+//
+//				d3.select('#srt')
+//				  .selectAll('p')
+//				  .data(parsedCSV)
+//				  .enter()
+//				  .append("p")
+//				  .text(function(d, i){
+//				  	//return d;
+//				  	if ( !isNaN(d) && d != '' ){
+//				  		key = parseInt(d);
+//				  	} else if (d == '') {
+//				  		myarray.push({
+//				  			"begin": begin,
+//				  			"end": end,
+//				  			"subtile": subtile
+//				  		});
+//				  	} else if (d.length == 3 ){
+//				  		begin = (parseInt(d[0][3]) * 10 + parseInt(d[0][4])) * 60 +
+//				  		        (parseInt(d[0][6]) * 10 + parseInt(d[0][7]));
+//
+//				  		end =   (parseInt(d[1][11]) * 10 + parseInt(d[1][12])) * 60 +
+//				  		        (parseInt(d[1][14]) * 10 + parseInt(d[1][15]));
+//				  	} else {
+//				  		subtile = d;
+//				  	}   
+//				  })
+//					;
+//				console.log(myarray)
+//				subtitle = svg
+//					.append('g')
+//					.selectAll('text')
+//					.data(myarray)
+//					.enter()
+//					.append('text')
+//					.text(function (d, i) {
+//						console.log(i)
+//						console.log(d)
+//						return d.subtile;
+//					})
+//					.attr('x', w / 2)
+//					.attr('y', h - 50)
+//					.attr("text-anchor", "middle")
+//					.style('fill', '#99b3ff')
+//					.attr('opacity', 0)
+//
+//			})
+//		}
 
 	</script>
 </body>
