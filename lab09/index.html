@@ -36,14 +36,19 @@
 		    fill: white;
             background-color: black;
 		    stroke: black;
-		    font-family: 'Noto Sans JP', 'Noto Serif JP', 'MS PGothic';
+		    font-family: 'MS PGothic';
 		}
 
+        #subtitle {
+			font-size: 40px;
+		    fill: #99b3ff;
+		    font-family: 'MS PGothic';
+		}
         
 		#clock {
 			font-size: 30px;
 		    fill: #999966;
-		    font-family: 'Noto Sans JP', 'Noto Serif JP', 'MS PGothic';
+		    font-family: 'MS PGothic';
 		}
 
 		svg text {
@@ -196,23 +201,52 @@
 
 				  console.log(myarray);
 
-				 subtitle = svg
-					.append('g')
-					.selectAll('text')
-					.data(myarray)
-					.enter()
-					.append('text')
-					.text(function (d, i) {
-						console.log(i)
-						console.log(d)
-						return d.subtile;
-					})
-					.attr('x', w / 2)
-					.attr('y', h - 50)
-					.attr("text-anchor", "middle")
-					.style('fill', '#99b3ff')
-					.attr('opacity', 0)
+				  var w = 960;
+				  var h = 540;
 
+				  var svg = d3.select('body')
+				    .append('svg')
+				    .attr('id', 'subtitle')
+				    .attr('width', w)
+				    .attr('height', h)
+				    .attr('viewbox', function(){
+				    	return "0, 0, " + w + ', ' + h;
+				    })
+				    ;
+                                
+                    svg.selectAll('text')
+			       .data(myarray)
+			       .enter()
+			       .append('text')
+			       .attr('class', 'text_1')
+			       .text(function(d, i){
+							 	return d.subtile;
+				    })
+			       .attr('begin', function(d, i){
+			       		return d.begin;
+			       })
+			       .attr('end', function(d, i){
+			       		return d.end;
+			       })
+			       .attr('x', w / 2)
+			       .attr('y', h - 50)
+			       .attr("text-anchor", "middle")
+                   .style('fill', '#99b3ff')
+			       .attr("background", "black")
+			       .attr('opacity', 0)
+			       .transition()
+			       .delay(function(d){
+						return d.begin * 1000;
+			       })
+				   .duration(0.1)
+			       .attr('opacity', 1)
+			       .transition()
+				   .delay(function(d){
+						return d.dur * 1000;
+			        })
+					.duration(0.1)
+			       .attr('opacity', 0)
+			       ;
 
 			    play_time();
 			})
