@@ -78,38 +78,40 @@
 		var frame = -1;
 		var textAniTime = 100;
 
-        var svg = d3.select('body')
+		d3.select('body')
+		  .append('svg')
+		  .attr('id', 'replay')
+		  .attr('width', 960)
+		  .attr('height', 540)
+		  .append('text')
+		  .text("Replay")
+		  .attr('x', 540)
+		  .attr('y', 279)
+		  .attr("text-anchor", "middle")
+		  .on('click', function(){
+		  	document.getElementById("video").play();
+		  	document.getElementById("video").style.display = "inline";
+		  	document.getElementById("replay").style.display = "none";
+			
+		  });
+
+		d3.select(video)
+			.style('display', 'none')
+            .on('ended', function () {
+				document.getElementById('video').style.display = 'none';
+			})
+			.on('timeupdate', () => {
+				play_time(video.currentTime);
+				play_subtitle(video.currentTime);
+			});
+
+		var svg = d3.select('body')
 			.append('svg')
 			.attr('id', 'subtitle')
 			.attr('width', w)
 			.attr('height', h)
 			.attr('viewbox', function () {
 				return "0, 0, " + w + ', ' + h;
-			});
-        
-        var playBtnText = svg
-		      .append('text')
-		      .text("Replay")
-		      .attr('x', 540)
-		      .attr('y', 279)
-		      .attr("text-anchor", "middle")
-		      .on('click', function(){
-		  	       document.getElementById("video").play();
-		  	       document.getElementById("video").style.display = "inline";
-                   document.getElementById("video").style.display = 'none';
-		  
-		  });
-
-		d3.select(video)
-			.style('display', 'none')
-            .on('ended', function () {
-				playBtnText.attr('opacity',1)
-				playBtnText.text('Replay')
-				document.getElementById('video').style.display = 'none';
-			})
-			.on('timeupdate', () => {
-				play_time(video.currentTime);
-				play_subtitle(video.currentTime);
 			});
 
 		var timeText = svg
